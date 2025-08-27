@@ -2,7 +2,7 @@ name: Sync selected problems to study repo
 
 on:
   push:
-    branches: [ master ]  # main이면 main로 변경
+    branches: [ main ]  # main이면 main로 변경
   workflow_dispatch:
 
 jobs:
@@ -107,14 +107,14 @@ jobs:
             shutil.copy2(src, dst)
           PY
 
-      - name: Commit & Push to study repo (master)
+      - name: Commit & Push to study repo (main)
         working-directory: algostudy
         run: |
-          git checkout -B master
+          git checkout -B main
           if [ -n "$(git status --porcelain)" ]; then
             git add -A
             git commit -m "sync(selected): ${{ github.actor }} from ${{ github.repository }}@${GITHUB_SHA::7}"
-            git push origin master
+            git push origin main
           else
             echo "No selected changes to sync."
           fi
